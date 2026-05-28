@@ -376,7 +376,7 @@
   <!-- ============ MAIN ============ -->
   <div id="main">
     <header>
-      <div class="sub">A Hunter's Dream</div>
+      <div class="sub">For the last funeral</div>
       <h1>UNDERTAKER</h1>
       <div class="ornament title-orn">
         <span class="bar"></span>
@@ -391,7 +391,6 @@
       <div class="ornament foot-orn"><span class="bar"></span>
         <svg class="scroll-end" viewBox="0 0 18 18"><path d="M9 2 C4 2 4 9 9 9 C14 9 14 16 9 16"/></svg>
         <span class="bar"></span></div>
-      Fear the Old Blood
     </footer>
   </div>
 
@@ -428,28 +427,16 @@
    ========================================================= */
 const FACTIONS = [
   {
-    name:"세력 I", note:"First Order",
+    name:"묘지",
     members:[
-      { name:"이름 1", role:"칭호", photo:"", portrait:"",
-        gender:"미상", age:"미상", place:"관련 장소",
-        personality:"성격을 입력하세요.",
-        trait:"특징을 입력하세요." },
-      { name:"이름 2", role:"칭호", photo:"", portrait:"",
-        gender:"미상", age:"미상", place:"관련 장소",
-        personality:"성격을 입력하세요.",
-        trait:"특징을 입력하세요." },
-      { name:"이름 3", role:"칭호", photo:"", portrait:"",
-        gender:"미상", age:"미상", place:"관련 장소",
-        personality:"성격을 입력하세요.",
-        trait:"특징을 입력하세요." },
-      { name:"이름 4", role:"칭호", photo:"", portrait:"",
-        gender:"미상", age:"미상", place:"관련 장소",
-        personality:"성격을 입력하세요.",
-        trait:"특징을 입력하세요." },
+      { name:"묘지기", role:"인도자", photo:"GK_tl_cowboyshot", portrait:"GK_TN", gender:"여", age:"불명", place:"묘지", personality:"부드럽고 자애롭다. 웬만하면 당황하지 않는다.", trait:"묘지기들의 안내자. 묘지를 관리하고 묘지기들에게 안전한 장소를 제공해준다." },
+      { name:"이름 2", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
+      { name:"이름 3", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
+      { name:"이름 4", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
     ]
   },
   {
-    name:"세력 II", note:"Second Order",
+    name:"세력 II",
     members:[
       { name:"이름 5", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
       { name:"이름 6", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
@@ -458,7 +445,7 @@ const FACTIONS = [
     ]
   },
   {
-    name:"세력 III", note:"Third Order",
+    name:"세력 III",
     members:[
       { name:"이름 9", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
       { name:"이름 10", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
@@ -467,7 +454,7 @@ const FACTIONS = [
     ]
   },
   {
-    name:"세력 IV", note:"Fourth Order",
+    name:"세력 IV",
     members:[
       { name:"이름 13", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
       { name:"이름 14", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
@@ -475,9 +462,16 @@ const FACTIONS = [
       { name:"이름 16", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
     ]
   },
+  {
+    name:"세력 V",
+    members:[
+      { name:"이름 17", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
+      { name:"이름 18", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
+      { name:"이름 19", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
+      { name:"이름 20", role:"칭호", photo:"", portrait:"", gender:"미상", age:"미상", place:"관련 장소", personality:"성격을 입력하세요.", trait:"특징을 입력하세요." },
+    ]
+  },
 ];
-
-const ROMAN = ["I","II","III","IV"];
 
 const emptyPhoto = `<div class="empty">
   <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8a8068" stroke-width="1.1"><circle cx="12" cy="9" r="3.5"/><path d="M5 20 C5 15 19 15 19 20"/></svg>
@@ -492,7 +486,6 @@ function buildMain(){
     <section class="faction">
       <div class="faction-head">
         <span class="label">${f.name}</span>
-        <span class="num">— ${f.note} —</span>
         <span class="bar"></span>
       </div>
       <div class="grid">
