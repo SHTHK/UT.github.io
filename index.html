@@ -468,6 +468,8 @@ const emptyPortrait = `<div class="empty">
   <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#8a8068" stroke-width="1"><circle cx="12" cy="9" r="3.5"/><path d="M5 20 C5 15 19 15 19 20"/></svg>
   <span>사진 없음<br>2 : 3</span></div>`;
 
+let mainScrollY = 0;  // 메인 화면 스크롤 위치 저장
+
 function buildMain(){
   const root = document.getElementById('factions');
   root.innerHTML = FACTIONS.map((f,fi)=>`
@@ -518,16 +520,17 @@ function renderProfile(fi, mi) {
 
 // 카드 클릭 시 프로필 열기 & History 추가
 function openProfile(fi,mi){
+  mainScrollY = window.scrollY;        // 현재 메인 화면 스크롤 위치 기억
   renderProfile(fi, mi);
-  // 브라우저 뒤로가기를 위한 상태 저장
-  history.pushState({ page: 'profile', fi: fi, mi: mi }, '', '#profile');
+  // 브라우저 뒤로가기를 위한 상태 저장 (스크롤 위치도 함께 보관)
+  try { history.pushState({ page: 'profile', fi: fi, mi: mi, scrollY: mainScrollY }, ''); } catch(e){}
 }
 
-// 메인 화면 보이기 로직
+// 메인 화면 보이기 로직 (저장된 위치로 스크롤 복원)
 function showMain(){
   document.getElementById('profile').style.display='none';
   document.getElementById('main').style.display='block';
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top: mainScrollY, behavior:'instant'});
 }
 
 // UI 내의 '돌아가기' 버튼 클릭 시 실행
@@ -545,15 +548,19 @@ function uiGoBack() {
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.page === 'profile') {
     // 앞으로 가기로 다시 프로필 페이지에 왔을 때
+    if (typeof event.state.scrollY === 'number') mainScrollY = event.state.scrollY;
     renderProfile(event.state.fi, event.state.mi);
   } else {
-    // 메인화면으로 돌아갔을 때
+    // 메인화면으로 돌아갔을 때 (저장된 위치로 복원)
     showMain();
   }
 });
 
+// 브라우저가 자동으로 스크롤 위치를 건드리지 않도록 수동 제어
+try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
+
 // 페이지 최초 진입 시 기본 History 상태 설정
-history.replaceState({ page: 'main' }, '', window.location.pathname);
+try { history.replaceState({ page: 'main' }, ''); } catch(e){}
 buildMain();
 </script>
 </body>
